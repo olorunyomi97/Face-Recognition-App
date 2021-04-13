@@ -1,5 +1,5 @@
 import React from 'react';
-// import "./FaceRecognition.css";
+import "./Register.css";
 
 const Register = ({ onRouteChange }) => {
     return (
