@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import Clarifai from 'clarifai';
 import Particles from "react-particles-js";
-import Navigation from "./components/Navigation/Navigation";
-import Logo from "./components/Logo/Logo";
-import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
-import Signin from "./components/Signin/Signin";
-import Register from "./components/Register/Register";
+import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
+import Logo from "./components/Logo/Logo";
+import Navigation from "./components/Navigation/Navigation";
 import Rank from "./components/Rank/Rank";
+import Register from "./components/Register/Register";
+import Signin from "./components/Signin/Signin";
 import "./App.css";
 
 
@@ -17,7 +17,7 @@ const applicationCache = new Clarifai.App({
 const ParticlesOptions = {
   particles: {
     number: {
-      value: 100,
+      value: 110,
       density: {
         enable: true,
         value_area: 1000
@@ -52,7 +52,6 @@ class App extends Component {
   }
 
   displayFaceBox = (box) => {
-    console.log(box);
     this.setState({box: box})
   }
 
