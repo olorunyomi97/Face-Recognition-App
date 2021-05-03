@@ -11,7 +11,7 @@ import Signin from "./components/Signin/Signin";
 import "./App.css";
 
 
-const applicationCache = new Clarifai.App({
+const app = new Clarifai.App({
   apiKey: "8b4d00cd8e324c2c84cbc64475df8f5f"
 })
 const ParticlesOptions = {
@@ -44,13 +44,6 @@ class App extends Component {
       }
     }
   }
-
-  // componentDidMount() {
-  //   fetch('http://localhost:3000')
-  //   .then(response => response.json())
-  //   .then(console.log)
-  // }
-
   loadUser = (data) => {
     this.setState({user : {
       id: data.id,
@@ -58,8 +51,7 @@ class App extends Component {
       email: data.email,
       entries: data.entries,
       joined: data.joined
-      }
-    })
+    }})
   }
 
   calculateFaceLocation = (data) => {
@@ -85,11 +77,26 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    applicationCache.models
+    app.models
     .predict(
       Clarifai.FACE_DETECT_MODEL,
       this.state.input)
-      .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+      .then(response => {
+        if (response) {
+          fetch('http://localhost:3000/image', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          }) 
+          .then(response => response.json())
+          .then(count => {
+            this.setState(Object.assign(this.state.user, { entries: count}))
+          })
+        }
+        this.displayFaceBox(this.calculateFaceLocation(response))
+      })
       .catch(err => console.log(err));
   }
 
