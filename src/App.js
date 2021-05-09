@@ -76,8 +76,8 @@ class App extends Component {
     this.setState({box: box})
   }
 
-  onInputChange = (event) => {
-    this.setState({input: event.target.value});
+  onInputChange = (e) => {
+    this.setState({input: e.target.value});
   }
 
   onButtonSubmit = () => {
